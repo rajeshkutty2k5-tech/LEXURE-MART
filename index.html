@@ -1402,7 +1402,12 @@ async function handleLogin() {
         if (response.ok) {
             loginSuccess(data);
         } else {
-            showToast(data.error || 'Invalid email or password.', 'error');
+            showToast(
+    typeof data.error === 'object'
+        ? (data.error.message || JSON.stringify(data.error))
+        : (data.error || 'Invalid email or password.'),
+    'error'
+);
         }
     } catch (error) {
         // API not reachable — use demo/local login
